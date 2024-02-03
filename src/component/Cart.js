@@ -1,51 +1,16 @@
 import { Container } from 'react-bootstrap';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Item from './Item';
+import CartItems from './CartItems';
+import { useContext } from 'react';
+import CartContext from '../Context/CartContext';
 
-const Cart = (props) => {
-    const cartElements = [
+const Cart = (props) => {     
 
-        {
-        
-        title: 'Colors',
-        
-        price: 100,
-        
-        imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',
-        
-        quantity: 2,
-        
-        },
-        
-        {
-        
-        title: 'Black and white Colors',
-        
-        price: 50,
-        
-        imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
-        
-        quantity: 3,
-        
-        },
-        
-        {
-        
-        title: 'Yellow and Black Colors',
-        
-        price: 70,
-        
-        imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
-        
-        quantity: 1,
-        
-        }
-        
-        ]
-        
-        
-
+    const cartCTX = useContext(CartContext);
+    const addToCart = (e) => {
+        console.log(e.target, cartCTX.cartItems)
+    }
 
   return (
     <div
@@ -54,9 +19,10 @@ const Cart = (props) => {
     >
         <Container>
       <Row>
-        {cartElements.map(item => <Col><Item src={item.imageUrl} title={item.title} price={item.price}></Item></Col>)}
+        {cartCTX.cartItems.map(item => <Col><CartItems quantity={item.quantity} onClick ={addToCart} src={item.imageUrl} title={item.title} price={item.price}></CartItems></Col>)}
         </Row>
-    </Container>
+        <h2>Toatal: {cartCTX.totalAmount}</h2>
+        </Container>
     </div>
   );
 }
