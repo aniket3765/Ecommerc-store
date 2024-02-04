@@ -1,15 +1,18 @@
 import './App.css';
-import Header from './component/Header'
-import Store from './component/Store';
-import CartProvider from './Context/CartProvider';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import About from './Pages/About';
+import Home from './Pages/Home';
+
+const router = createBrowserRouter([
+  {path:'/', element:<Home /> },
+  {path:'/About_US', element:<About /> }
+])
 
 function App() {
 
     return (
-  <CartProvider>
-     <Header/>
-     <Store/>
-  </CartProvider>
+      <RouterProvider router={router}/>
+  
    
   );
 

@@ -16,7 +16,6 @@ const Header = () => {
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
       <Nav.Item>
-        
         <Navbar.Brand><img
       src={logo}
       width="30"
@@ -24,7 +23,6 @@ const Header = () => {
       alt='Colors Item'
     />Colors Item</Navbar.Brand>
       </Nav.Item>
-      <Button variant="secondary" ref={target} onClick={()=> handleCart}>Cart</Button>
       <div className="container">   
       <Button variant="primary" onClick={handleCart}> Cart</Button>
    
@@ -36,9 +34,6 @@ const Header = () => {
          <Cart/>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCart}>
-            Close
-          </Button>
           <Button variant="primary" onClick={handleCart}>
             Buy
           </Button>

@@ -13,6 +13,11 @@ const CartProvider =(props) => {
         
         }]);
 
+        const addTotal = (price) => {
+            const newTotalAmount = totalAmount+price;
+            setTotalAmount(newTotalAmount);
+        }
+
         const addItemToCart = (item) => {
              const  existingItemId = cartItems.findIndex(i => i.id==item.id)
                let newCartItems, newCartItem;
@@ -22,6 +27,7 @@ const CartProvider =(props) => {
                     quantity:1
                 }
                 newCartItems = [...cartItems, newCartItem];
+                addTotal(newCartItem.price);
                 setCartItems(newCartItems);
                }
                else{
@@ -29,6 +35,7 @@ const CartProvider =(props) => {
                 newCartItem.quantity = newCartItem.quantity+1;
                 newCartItems = [...cartItems];
                 newCartItems[existingItemId] = newCartItem;
+                addTotal(newCartItem.price);
                 setCartItems(newCartItems);
                }
         }
