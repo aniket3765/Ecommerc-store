@@ -6,6 +6,7 @@ import { useRef, useState } from 'react';
 import logo from '../favicon.ico'
 import { Modal } from 'react-bootstrap';
 import Cart from './Cart';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
 
@@ -24,6 +25,9 @@ const Header = () => {
     />Colors Item</Navbar.Brand>
       </Nav.Item>
       <div className="container">   
+     <Nav.Item><Link to="/About_US">About US</Link></Nav.Item>
+     <Nav.Item><Link to="/Home">Home</Link></Nav.Item>
+     <Nav.Item><Link to="/Store">Store</Link></Nav.Item> 
       <Button variant="primary" onClick={handleCart}> Cart</Button>
    
       <Modal size="lg" show={cart} onHide={handleCart}>
