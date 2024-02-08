@@ -4,53 +4,74 @@ import { Container } from 'react-bootstrap';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import CartContext from '../Context/CartContext';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 const Store = (props) => {
     const cartCTX = useContext(CartContext);
-    const storeItems = [
+    const [storeItems, setStoreItems] = useState([]);
+    // const storeItems = [
 
-        {
-        id:"1",
-        title: 'Colors',
+    //     {
+    //     id:"1",
+    //     title: 'Colors',
         
-        price: 100,
+    //     price: 100,
         
-        imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',
+    //     imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',
         
-        },
+    //     },
         
-        {
-        id:"2",
-        title: 'Black and white Colors',
+    //     {
+    //     id:"2",
+    //     title: 'Black and white Colors',
         
-        price: 50,
+    //     price: 50,
         
-        imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
+    //     imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
         
-        },
+    //     },
         
-        {
-        id:"3",
-        title: 'Yellow and Black Colors',
+    //     {
+    //     id:"3",
+    //     title: 'Yellow and Black Colors',
         
-        price: 70,
+    //     price: 70,
         
-        imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
+    //     imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
         
-        },
+    //     },
         
-        {
-        id:"4",
-        title: 'Blue Color',
+    //     {
+    //     id:"4",
+    //     title: 'Blue Color',
         
-        price: 100,
+    //     price: 100,
         
-        imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
+    //     imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
         
-        }
+    //     }
         
-        ];
+    //     ];
+
+       
+       const getProducts =  async ()=> {
+            const responce = await fetch('https://ecomstore-http-default-rtdb.firebaseio.com/products.json').catch(error=> console.log(error));
+            const data = await responce.json();
+            const allProduct = [];
+            for(let key in data){
+                allProduct.push({
+                    id:key,
+                    title:data[key].title,
+                    imageUrl:data[key].imageUrl,
+                    price:data[key].price
+                })
+            }
+           return setStoreItems(allProduct)
+            }
+        
+          getProducts();
+    
+
 
         const addItemToCart = (e) => {
             
@@ -62,12 +83,14 @@ const Store = (props) => {
                 continue;
             }
         }
+
+
         
         
     
 return ( <Container>
       <Row>
-        {storeItems.map(item => <Col><Item id ={item.id}onClick={addItemToCart}src={item.imageUrl} title={item.title} price={item.price}></Item></Col>)}
+        {storeItems.map(item => <Col><Item id ={item.id} onBuy={addItemToCart} src={item.imageUrl} title={item.title} price={item.price}></Item></Col>)}
         </Row>
     </Container>)
 }

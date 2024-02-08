@@ -3,11 +3,13 @@ import Header from "../component/Header"
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Container } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 
 const ContactUs = (e) => {
+    const params = useParams()
     const onSubmitHandler = async (e) => {
         e.preventDefault();
-
+        
         const memberDetails = {
             name:e.target.name.value,
             email:e.target.email.value,
@@ -25,7 +27,9 @@ const ContactUs = (e) => {
         console.log(data)
       }
     return<Fragment>
-     <Header /><Container>
+     <Header />
+     <h1>{params.productId} </h1>
+     <Container>
      <Form onSubmit={onSubmitHandler}>
         <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Label>Name</Form.Label>
