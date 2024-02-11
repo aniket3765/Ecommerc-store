@@ -4,7 +4,7 @@ import { Container } from 'react-bootstrap';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import CartContext from '../Context/CartContext';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 
 const Store = (props) => {
     const cartCTX = useContext(CartContext);

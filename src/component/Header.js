@@ -23,7 +23,7 @@ const Header = () => {
       <Nav>
       <Nav.Item as="li"><Nav.Link><Link to="/About_US" ><Button size='sm'>About</Button></Link></Nav.Link></Nav.Item>  
       <Nav.Item as="li">
-        <Nav.Link><Link to="/"><Button size='sm'>Home</Button></Link></Nav.Link>
+        <Nav.Link><Link to="/"><Button variant='danger' size='sm'>Logout</Button></Link></Nav.Link>
       </Nav.Item>
       <Nav.Item as="li">
         <Nav.Link><Link to="/Store"  ><Button size='sm'> Store </Button></Link></Nav.Link>
