@@ -10,8 +10,8 @@ import { Modal } from 'react-bootstrap';
 const Cart = (props) => {  
 
     const cartCTX = useContext(CartContext);
-    const addToCart = (e) => {
-        console.log(e.target, cartCTX.cartItems)
+    const addToCart = (item) => {
+           cartCTX.addItemToCart(item)
     }
 
   return (
@@ -28,7 +28,7 @@ const Cart = (props) => {
         <Modal.Body>
         <Container>
       <Row>
-        {cartCTX.cartItems.map(item => <Col><CartItems quantity={item.quantity} onClick ={addToCart} src={item.imageUrl} title={item.title} price={item.price}></CartItems></Col>)}
+        {cartCTX.cartItems.map(item => <Col><CartItems id={item.id} quantity={item.quantity} onClick ={addToCart} src={item.imageUrl} title={item.title} price={item.price}></CartItems></Col>)}
         </Row>
         <h2>Toatal: {cartCTX.totalAmount}</h2>
         </Container>

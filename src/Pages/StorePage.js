@@ -8,7 +8,8 @@ const StorePage = () => {
        <Header/>
         <Store/>
         <MyFooter />
-     </CartProvider>
+        </CartProvider>
+    
 }
 
 export default StorePage;

@@ -3,11 +3,9 @@ import Item from './Item';
 import { Container } from 'react-bootstrap';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import CartContext from '../Context/CartContext';
-import { useContext, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Store = (props) => {
-    const cartCTX = useContext(CartContext);
     const [storeItems, setStoreItems] = useState([]);
     // const storeItems = [
 
@@ -56,41 +54,30 @@ const Store = (props) => {
        
        const getProducts =  async ()=> {
             const responce = await fetch('https://ecomstore-http-default-rtdb.firebaseio.com/products.json').catch(error=> console.log(error));
+
             const data = await responce.json();
+            
             const allProduct = [];
             for(let key in data){
+                console.log(key)
                 allProduct.push({
-                    id:key,
+                    key:key,
+                    id:data[key].id,
                     title:data[key].title,
                     imageUrl:data[key].imageUrl,
                     price:data[key].price
                 })
             }
-           return setStoreItems(allProduct)
+            setStoreItems(allProduct)
             }
         
-          getProducts();
-    
+          useEffect (()=> {
+            getProducts();
+          },[])
 
-
-        const addItemToCart = (e) => {
-            
-            for (const item of storeItems) {
-                if (item.id == e.target.id) {
-                    cartCTX.addItemToCart(item)
-                    break;
-                }
-                continue;
-            }
-        }
-
-
-        
-        
-    
 return ( <Container>
       <Row>
-        {storeItems.map(item => <Col><Item id ={item.id} onBuy={addItemToCart} src={item.imageUrl} title={item.title} price={item.price}></Item></Col>)}
+        {storeItems.map(item => <Col><Item itemKey={item.key} id ={item.id} src={item.imageUrl} details={true} title={item.title} price={item.price}></Item></Col>)}
         </Row>
     </Container>)
 }

@@ -1,15 +1,16 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import React, { useContext, useRef } from 'react';
+import React, { Fragment, useContext, useRef } from 'react';
 import LoginContext from '../Context/LoginContext';
-import { render } from 'react-dom';
-import App from '../App';
+import { useNavigate } from 'react-router'
+import Header from '../component/Header';
 
-function LoginPage() {
+ function LoginPage() {
     const enteredEmail = useRef();
     const enteredPassword = useRef();
     const loginCtx = useContext(LoginContext)
-
+    const navigate = useNavigate()
+ 
     if(loginCtx.isLoggedIn){
         console.log(loginCtx.isLoggedIn +"App.js")
       }
@@ -17,7 +18,7 @@ function LoginPage() {
     const loginHandler = (event) => {
         event.preventDefault();
 
-     if(1==2)  { 
+    
         fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCcI4ik-JGmcJirDfUK3pnibVIgihAH7c4',{
             method:'POST',
             body:JSON.stringify({
@@ -33,6 +34,8 @@ function LoginPage() {
                 res.json().then(data=> {
                     console.log(data);
                     loginCtx.login(data.idToken);
+                    navigate('/home')
+                    
                 })
             }
             else{
@@ -40,21 +43,19 @@ function LoginPage() {
                     console.log(data)
                 })
             }
-        })}
-        else{
-            if(!loginCtx.isLoggedIn) loginCtx.login("asdfghjkl");
-            else loginCtx.logout()
-        }
+        })
 
     }
   return (
+    <Fragment>
+      <Header />
     <div className="border d-flex align-items-center justify-content-center">
+      
     <Form style={{width:"30%"}} onSubmit={loginHandler} >
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control ref={enteredEmail} type="email" placeholder="Enter email" />
       </Form.Group>
-
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
         <Form.Control ref={enteredPassword} type="password" placeholder="Password" />
@@ -64,6 +65,7 @@ function LoginPage() {
       </Button>
     </Form>
     </div>
+    </Fragment>
   );
 }
 

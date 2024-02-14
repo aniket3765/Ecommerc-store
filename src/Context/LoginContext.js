@@ -11,7 +11,6 @@ export const LoginContextProvider = (props) => {
     const initialToken = localStorage.getItem('token');
     const [token, setToken] = useState(initialToken);
     const [userIsLoggedIn,setUserIsLoggedIn]= useState(!!token);
-    console.log("provider")
 
     const loginHandler = (token) => {
         setToken(token);
@@ -20,10 +19,9 @@ export const LoginContextProvider = (props) => {
     }
 
     const logoutHandler = () => {
+        localStorage.clear()
         setToken(null);
-        alert('hello')
-        setUserIsLoggedIn(false)
-        localStorage.removeItem('token');
+        setUserIsLoggedIn(false);
     }
 
     const loginContextValue = {
