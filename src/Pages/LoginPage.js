@@ -4,21 +4,17 @@ import React, { Fragment, useContext, useRef } from 'react';
 import LoginContext from '../Context/LoginContext';
 import { useNavigate } from 'react-router'
 import Header from '../component/Header';
+import CartContext from '../Context/CartContext';
 
  function LoginPage() {
     const enteredEmail = useRef();
     const enteredPassword = useRef();
-    const loginCtx = useContext(LoginContext)
-    const navigate = useNavigate()
- 
-    if(loginCtx.isLoggedIn){
-        console.log(loginCtx.isLoggedIn +"App.js")
-      }
-
+    const loginCtx = useContext(LoginContext);
+    const navigate = useNavigate();
+    const cartCtx = useContext(CartContext);
     const loginHandler = (event) => {
         event.preventDefault();
-
-    
+        localStorage.setItem("email",enteredEmail.current.value)
         fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCcI4ik-JGmcJirDfUK3pnibVIgihAH7c4',{
             method:'POST',
             body:JSON.stringify({
@@ -31,12 +27,14 @@ import Header from '../component/Header';
             }
         }).then(res => {
             if(res.ok){
+              const email = enteredEmail.current.value.replace('@','');
+                cartCtx.getCart(email.replace('.',''));
                 res.json().then(data=> {
-                    console.log(data);
                     loginCtx.login(data.idToken);
                     navigate('/home')
                     
                 })
+                
             }
             else{
                 res.json().then(data=> {

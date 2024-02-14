@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
+import CartContext from "./CartContext";
 
 const LoginContext = createContext({
     token:'',
@@ -11,6 +12,7 @@ export const LoginContextProvider = (props) => {
     const initialToken = localStorage.getItem('token');
     const [token, setToken] = useState(initialToken);
     const [userIsLoggedIn,setUserIsLoggedIn]= useState(!!token);
+    const cartCtx = useContext(CartContext);
 
     const loginHandler = (token) => {
         setToken(token);
@@ -19,6 +21,7 @@ export const LoginContextProvider = (props) => {
     }
 
     const logoutHandler = () => {
+        cartCtx.setCart();
         localStorage.clear()
         setToken(null);
         setUserIsLoggedIn(false);

@@ -14,6 +14,32 @@ const CartProvider =(props) => {
             localStorage.setItem('totalAmount',newTotalAmount);
         }
 
+        const getCart = (email) => {
+            // fetch(`https://crudcrud.com/api/75748f1d5cef4921853d2f90b647a418/user/${email}`)
+            // .then(res => {
+            //     if(res.ok){
+            //         res.json().then(data => {
+            //             console.log(data);
+            //         })
+            //     }
+            // })
+        }
+        const setCart = (email) => {
+            fetch(`https://crudcrud.com/api/75748f1d5cef4921853d2f90b647a418/user/${email}`,{
+                method:'POST',
+            body:JSON.stringify(data),
+            headers:{
+                'Content-Type' : 'application/json'
+            }
+            }).
+            then(res => {
+                if(res.ok) {
+                    res.json().then(data => console.log(data))
+                }
+            })
+        }  
+
+
         const addItemToCart = (item) => {
            
              const  existingItemId = cartItems.findIndex(i => i.id===item.id)
@@ -47,7 +73,9 @@ const CartProvider =(props) => {
     cartItems:cartItems,
     totalAmount:totalAmount,
     addItemToCart:addItemToCart,
-    removeItemFromCart:removeItemFromCart
+    removeItemFromCart:removeItemFromCart,
+    getCart:getCart,
+    setCart:setCart
     }
 
     return <CartContext.Provider value={cartContext} >

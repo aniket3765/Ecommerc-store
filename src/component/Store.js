@@ -59,7 +59,6 @@ const Store = (props) => {
             
             const allProduct = [];
             for(let key in data){
-                console.log(key)
                 allProduct.push({
                     key:key,
                     id:data[key].id,

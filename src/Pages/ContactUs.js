@@ -15,7 +15,6 @@ const ContactUs = (e) => {
             email:e.target.email.value,
             phone:e.target.phone.value
         }
-        console.log(memberDetails)
         const responce = await fetch('https://ecomstore-http-default-rtdb.firebaseio.com/contact_us.json',{
           method:'POST',
           body:JSON.stringify(memberDetails),
@@ -24,7 +23,6 @@ const ContactUs = (e) => {
           }
         });
         const data = await responce.json();
-        console.log(data)
       }
     return<Fragment>
      <Header />
